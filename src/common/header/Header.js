@@ -25,7 +25,11 @@ class Header extends PureComponent {
                 <Nav>
                     <NavItem className='left active'>首页</NavItem>
                     <NavItem className='left'>下载App</NavItem>
-                    <NavItem className='right'>登录</NavItem>
+                    {
+                        this.props.login? 
+                        <NavItem className='right' onClick={this.props.logout}>退出</NavItem>: 
+                        <Link to='/login'><NavItem className='right'>登录</NavItem></Link>       
+                    }
                     <NavItem className='right'>
                         <i className='iconfont'>&#xe636;</i>
                     </NavItem>
@@ -53,10 +57,12 @@ class Header extends PureComponent {
                 </Nav>
                 <div style={{width: '220px',position: 'absolute',right: 0}}>
                     <Additon className='reg'>注册</Additon>
-                    <Additon className='writting'>
-                        <i className='iconfont'>&#xe60b;</i>
-                        写文章
-                    </Additon>
+                    <Link to='/write'>
+                        <Additon className='writting'>
+                            <i className='iconfont'>&#xe60b;</i>
+                            写文章
+                        </Additon>
+                    </Link>
                 </div>
             </HeaderWrapper>      
         );
@@ -86,7 +92,8 @@ const mapStateToProps = (state) => ({
     list: state.getIn(['header','list']),
     showIndex: state.getIn(['header','showIndex']),
     mouseIn: state.getIn(['header','mouseIn']),
-    iconRotate: state.getIn(['header','iconRotate'])
+    iconRotate: state.getIn(['header','iconRotate']),
+    login: state.getIn(['login','login'])
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -107,6 +114,13 @@ const mapDispatchToProps = (dispatch) => ({
     },
     mouseLeave() {
         dispatch(actionCreator.mouseLeave())
+    },
+    logout() {
+        const action = {
+            type: 'login/CHANGE_LOGIN',
+            value: false
+        }
+        dispatch(action)
     }
 })
 

@@ -68,6 +68,7 @@ export const NavSearch = styled.input.attrs({
 
 export const SearchInfo = styled.div`
     position: absolute;
+    z-index:2;
     background: white;
     visibility: hidden;
     left: 150px;
@@ -102,9 +103,7 @@ export const SearchInfoSwitch = styled.span`
     font-size: 13px;
 `
 
-export const Additon = styled.a.attrs({
-    href: '/'
-})`
+export const Additon = styled.div`
     display: inline-block;
     margin: 9px;
     padding: 11px 20px;
